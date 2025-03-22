@@ -62,8 +62,8 @@ function removeFile(event) {
 
 function generatePrescription() {
     try {
-        // Create an HTML template with responsive design
-        const template = `
+        // Show loading state
+        const loadingTemplate = `
             <!DOCTYPE html>
             <html>
             <head>
@@ -79,67 +79,56 @@ function generatePrescription() {
                         box-sizing: border-box;
                         background: white;
                     }
-                    .prescription-container {
+                    .loading-container {
                         max-width: 800px;
                         margin: 0 auto;
-                        background: white;
-                        padding: 20px;
-                        border-radius: 8px;
-                        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+                        text-align: center;
+                        padding: 40px 20px;
                     }
-                    img {
-                        max-width: 100%;
-                        height: auto;
-                        display: block;
-                        margin: 0 auto;
+                    .loading-spinner {
+                        border: 4px solid #f3f3f3;
+                        border-top: 4px solid #3498db;
+                        border-radius: 50%;
+                        width: 50px;
+                        height: 50px;
+                        animation: spin 1s linear infinite;
+                        margin: 20px auto;
                     }
-                    h2 {
-                        color: #333;
-                        margin: 20px 0;
-                    }
-                    p {
-                        color: #666;
-                        margin: 10px 0;
-                    }
-                    @media print {
-                        body {
-                            padding: 0;
-                            background: white;
-                        }
-                        .prescription-container {
-                            box-shadow: none;
-                        }
+                    @keyframes spin {
+                        0% { transform: rotate(0deg); }
+                        100% { transform: rotate(360deg); }
                     }
                 </style>
             </head>
             <body>
-                <div class="prescription-container">
+                <div class="loading-container">
                     <img src="logo.png" alt="MediScribe Logo" style="max-width: 200px; margin-bottom: 20px;">
-                    <img src="https://industrious-tan-wallaby.glitch.me/imagesnew/20.png" alt="Prescription Image" style="width: 100%;">
+                    <div class="loading-spinner"></div>
+                    <h2>Generating Prescription...</h2>
+                    <p>Please wait while we process your prescription</p>
                 </div>
             </body>
             </html>
         `;
 
-        // Convert HTML to Blob
-        const htmlBlob = new Blob([template], { type: 'text/html;charset=utf-8' });
-        
-        // Create URL for the HTML
-        const pdfUrl = URL.createObjectURL(htmlBlob);
-        
-        // Try to open in new tab
-        const newWindow = window.open(pdfUrl, '_blank');
-        
+        // Show loading state first
+        const loadingBlob = new Blob([loadingTemplate], { type: 'text/html;charset=utf-8' });
+        const loadingUrl = URL.createObjectURL(loadingBlob);
+        const newWindow = window.open(loadingUrl, '_blank');
+
         if (newWindow === null) {
             throw new Error('Pop-up blocked or failed to open document');
         }
-        
-        // Clean up
+
+        // After 10 seconds, redirect to the prescription image URL
         setTimeout(() => {
-            URL.revokeObjectURL(pdfUrl);
-        }, 1000);
-        
-        // Close modal after opening document
+            newWindow.location.href = 'https://shorturl.at/TjgAv';
+
+            // Clean up the loading URL
+            URL.revokeObjectURL(loadingUrl);
+        }, 10000);
+
+        // Close modal after starting the generation process
         closeModal();
     } catch (error) {
         console.error('Failed to generate document:', error);
