@@ -25,6 +25,8 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
+// The rest of your previous functions like openModal, closeModal, generatePrescription, etc.
+
 function openModal() {
     const modal = document.getElementById('uploadModal');
     modal.style.display = 'flex';
