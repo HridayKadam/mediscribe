@@ -1,21 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-823M20TH44"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'G-823M20TH44');
-    </script>
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Careers - MediScribe</title>
+    <title>MediScribe - AI Medical Scribe for Clinicians</title>
     <link rel="icon" type="image/png" href="logo.png">
     <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="careers.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="script.js" defer></script>
 </head>
@@ -33,52 +23,93 @@
         </div>
     </nav>
 
-    <main class="careers-container">
-        <h1 class="careers-title">Join Our Mission to Transform Healthcare</h1>
-        
-        <div class="job-cards">
-            <div class="job-card">
-                <h2 class="job-title">Generative AI Engineer</h2>
-                <p class="job-description">Join us in building cutting-edge AI solutions for healthcare. Help develop and improve our medical transcription and prescription generation systems.</p>
-                <div class="responsibilities">
-                    <h3>Key Responsibilities</h3>
-                    <ul>
-                        <li>Train, and fine-tune LLMs (GPT, LLaMA, Mistral, etc.) for various applications.</li>
-                        <li>Implement prompt engineering and retrieval-augmented generation (RAG) techniques.</li>
-                        <li>Optimize model performance and reduce latency for real-world applications.</li>
-                        <li>Work with NLP, transformers, embeddings, and vector databases.</li>
-                        <li>Collaborate with cross-functional teams to integrate AI solutions into products.</li>
-                        <li>Stay updated with the latest advancements in AI/ML and LLM research.</li>
-                    </ul>
-                </div>
-                <div class="requirements">
-                    <h3>Requirements</h3>
-                    <ul>
-                        <li>Strong background in Machine Learning, Deep Learning, and NLP.</li>
-                        <li>Proficiency in Python, TensorFlow, PyTorch, LangChain, Hugging Face.</li>
-                        <li>Experience with LLM fine-tuning, training, and optimization.</li>
-                        <li>Ability to work with large datasets, vector databases (FAISS, Pinecone, ChromaDB).</li>
-                        <li>Strong problem-solving skills and ability to work in a fast-paced environment.</li>
-                    </ul>
-                </div>
-                <div class="preferred-qualifications">
-                    <h3>Preferred Qualifications</h3>
-                    <ul>
-                        <li>Experience with open-source LLMs and custom model training.</li>
-                        <li>Familiarity with multimodal AI (text, image, speech).</li>
-                    </ul>
-                </div>
-                <div class="benefits">
-                    <h3>Benefits</h3>
-                    <ul>
-                        <li><strong>Letter of Recommendation from IIT Bombay Professor:</strong> Since,This is IITB Funded Startup Exceptional performers will receive a Letter of Recommendation (LoR) from Prof. Dhwanil Shukla, a distinguished faculty member at IIT Bombay and Guiding mentor of this Startup, enhancing your academic and professional credentials.</li>
-                        <li><strong>Remote & Flexible Work Environment:</strong> Work from anywhere, anytime! Enjoy the freedom to manage your schedule while contributing to innovative projects that align with your academic and personal commitments.</li>
-                    </ul>
-                </div>
-            </div>
+    <main class="hero">
+        <div class="feature-tag">
+            <span>🎉</span>
+             re-imagine the way prescriptions are documented!
+        </div>
+        <h1>AI-powered solution for effortless prescription documentation for medical professionals!</h1>
+        <div class="button-group">
+            <a href="https://docs.google.com/forms/d/1mI-EOufdnqRe5JCaKX21MQRahkymzLRceAnqernYiqI/viewform?edit_requested=true" target="_blank" class="try-btn">Join Waitlist!<span class="free-tag">it's free</span></a>
+            <button class="try-btn beta-btn" onclick="openModal()">Try Now<span class="free-tag">beta</span></button>
         </div>
 
-        <a href="https://yip.su/mediscribe" target="_blank" class="apply-btn">Apply Now</a>
+        <div id="uploadModal" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="closeModal()">&times;</span>
+                <h2>Upload Audio</h2>
+                <div class="upload-area" onclick="document.getElementById('audioFile').click()">
+                    <input type="file" id="audioFile" accept="audio/*" style="display: none;" onchange="handleFileSelect(event)">
+                    <div id="uploadText">
+                        <i class="fas fa-cloud-upload-alt fa-3x"></i>
+                        <p>Click or drag to upload audio file</p>
+                        <span class="upload-hint">Supported formats: MP3, WAV</span>
+                    </div>
+                    <div id="fileInfo" style="display: none;">
+                        <i class="fas fa-file-audio"></i>
+                        <p id="fileName"></p>
+                        <span class="remove-file" onclick="removeFile(event)">Remove</span>
+                    </div>
+                </div>
+                <button id="generateBtn" class="try-btn generate-btn" onclick="generatePrescription()" style="display: none;">
+                    <i class="fas fa-file-medical"></i>
+                    Generate Prescription
+                </button>
+            </div>
+        </div>
+        
+        <section class="problem-solution-section">
+            <div class="problems-container">
+                <h2>Current Healthcare Challenges</h2>
+                <div class="problem-cards">
+                    <div class="problem-card">
+                        <div class="icon">💻</div>
+                        <h3>Cumbersome for doctors</h3>
+                        <p>Doctors are adapted to pen-paper Rx and complaint that it is highly inconvenient for them to type down on the computer</p>
+                    </div>
+                    <div class="problem-card">
+                        <div class="icon">⌨️</div>
+                        <h3>Doctor's poor typing speed</h3>
+                        <p>Most of the doctors struggle in typing, which causes severe wastage of their time in record keeping, leading to lesser time available to examine patients</p>
+                    </div>
+                    <div class="problem-card">
+                        <div class="icon">👥</div>
+                        <h3>Reduced Doctor-Patient interaction</h3>
+                        <p>To compensate for the slow typing speed, doctors keep typing while the patient is describing his illness leading to lesser engagement with the patient</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="solutions-container">
+                <h2>MediScribe Solutions</h2>
+                <div class="solution-cards">
+                    <div class="solution-card">
+                        <div class="icon">🎙️</div>
+                        <h3>AI documentation</h3>
+                        <p>MediScribe generates real time transcription of doctor-patient conversation and the trained AI model extracts key information from it and automatically converts it into structured, digital prescriptions as per the format of the hospital.</p>
+                    </div>
+                    <div class="solution-card">
+                        <div class="icon">⚡</div>
+                        <h3>Time saved</h3>
+                        <p>Doctors can focus entirely on patients. Significantly reduce their efforts by eliminating the need for manual data entry by typing. Doctor can glance the generated Rx and do only the key changes in it if required.</p>
+                    </div>
+                    <div class="solution-card">
+                        <div class="icon">🧠</div>
+                        <h3>Actively learning algorithm</h3>
+                        <p>The AI model actively learns from the doctor as to which medicines is prescribed in what kind of scenario. In similar case in future, MediScribe's algorithm will recommend that medicine on the screen eliminating the need to type and search the medicine helping doctor to save his time even further</p>
+                    </div>
+                    <div class="solution-card">
+                        <div class="icon">🔄</div>
+                        <h3>Seamless integration</h3>
+                        <p>Easily integrable with existing hospital management systems (HMS) and electronic medical records (EMRs), ensuring smooth adoption without workflow disruptions.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
     </main>
+
+    <footer class="footer">
+        © MediScribe 2025
+    </footer>
 </body>
 </html>
